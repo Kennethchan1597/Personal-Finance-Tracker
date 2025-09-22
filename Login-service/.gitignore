@@ -1,2 +1,9 @@
-# .gitignore
+# OS / IDE
+.DS_Store
+
+# Maven / Java build
+target/
+*.jar
+
+# Environment variables
 .env
