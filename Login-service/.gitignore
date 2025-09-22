@@ -7,3 +7,4 @@ target/
 
 # Environment
 .env
+.DS_Store
