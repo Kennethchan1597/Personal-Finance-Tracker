@@ -1,2 +1,9 @@
-# .gitignore
+# macOS
+.DS_Store
+
+# Maven / Java
+target/
+*.class
+
+# Environment
 .env
