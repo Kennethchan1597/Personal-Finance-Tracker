@@ -1,6 +1,7 @@
 /Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/DemoPersonalFinanceTrackerApplication.java
 /Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/config/AppConfig.java
 /Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/config/CorsConfig.java
+/Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/config/text.java
 /Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/controller/AuthOperation.java
 /Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/controller/impl/AuthController.java
 /Users/ashimeru/Desktop/Project/Personal-Finance-Tracker/Login-service/src/main/java/com/ashimeru/personalfinance/demo_auth_service/dto/AuthResponseDto.java

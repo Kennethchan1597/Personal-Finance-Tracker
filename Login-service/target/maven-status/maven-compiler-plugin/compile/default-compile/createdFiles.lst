@@ -34,4 +34,5 @@ com/ashimeru/personalfinance/demo_auth_service/dto/ErrorDto$ErrorDtoBuilder.clas
 com/ashimeru/personalfinance/demo_auth_service/entity/EntityMapper.class
 com/ashimeru/personalfinance/demo_auth_service/entity/VerificationTokenEntity$VerificationTokenEntityBuilder.class
 com/ashimeru/personalfinance/demo_auth_service/entity/UserEntity.class
+main/java/com/ashimeru/personalfinance/demo_auth_service/config/text.class
 com/ashimeru/personalfinance/demo_auth_service/config/AppConfig.class

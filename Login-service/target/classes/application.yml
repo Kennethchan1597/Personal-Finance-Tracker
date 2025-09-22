@@ -1,7 +1,7 @@
 server:
   port: 8090
 
-jwt.secretkey: MdhAb+Ft2eNt/vH0wl9six4HZDojUGjO3EVpQ0ApIrA=
+jwt.secretkey: ${JWT_SECRET}
 
 spring:
   datasource:
