@@ -22,7 +22,6 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
     @Setter
     private Long userId;
     private String type;
