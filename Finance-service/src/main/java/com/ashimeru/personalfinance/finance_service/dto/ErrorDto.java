@@ -18,7 +18,8 @@ public class ErrorDto {
   private ZonedDateTime timestamp;
 
   public static enum Code{
-    TOKEN_INVALID(1, "Invalid token", HttpStatus.UNAUTHORIZED);
+    TOKEN_INVALID(1, "Invalid token", HttpStatus.UNAUTHORIZED),
+    TOKEN_EXPIRED(2, "Token expired", HttpStatus.UNAUTHORIZED);
 
     private final HttpStatus httpStatus;
     private final int code;

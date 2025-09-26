@@ -3,19 +3,26 @@ package com.ashimeru.personalfinance.finance_service.security;
 import java.util.Collection;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import com.ashimeru.personalfinance.finance_service.entity.CurrencyType;
 
-public class UserIdAuthentication implements Authentication {
+public class UserAuthentication implements Authentication {
 
     private final Long userId;
+    private final CurrencyType defaultCurrency;
     private boolean authenticated = true;
 
-    public UserIdAuthentication(Long userId) {
+    public UserAuthentication(Long userId, CurrencyType defaultCurrency) {
         this.userId = userId;
+        this.defaultCurrency = defaultCurrency;
+    }
+
+    public CurrencyType getDefaultCurrency() {
+        return defaultCurrency;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null; // you can add roles later if needed
+        return null;
     }
 
     @Override
@@ -30,7 +37,7 @@ public class UserIdAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return userId; // ✅ principal = userId
+        return userId;
     }
 
     @Override
@@ -39,7 +46,8 @@ public class UserIdAuthentication implements Authentication {
     }
 
     @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+    public void setAuthenticated(boolean isAuthenticated)
+            throws IllegalArgumentException {
         this.authenticated = isAuthenticated;
     }
 

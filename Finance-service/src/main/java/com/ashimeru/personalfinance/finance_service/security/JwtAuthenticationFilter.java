@@ -6,8 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.ashimeru.personalfinance.finance_service.dto.ErrorDto.Code;
-import com.ashimeru.personalfinance.finance_service.exception.AppException;
+import com.ashimeru.personalfinance.finance_service.entity.CurrencyType;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,14 +29,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
 
-            if (!jwtUtil.isTokenValid(token)) {
-                throw new AppException(Code.TOKEN_INVALID);
-            }
+            jwtUtil.isTokenValid(token);
 
             Long userId = jwtUtil.extractUserId(token);
+            CurrencyType defaultCurrency = this.jwtUtil.extractDefaultCurrency(token);
 
             // Store userId as principal in Spring Security context
-            Authentication authentication = new UserIdAuthentication(userId);
+            Authentication authentication = new UserAuthentication(userId, defaultCurrency);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

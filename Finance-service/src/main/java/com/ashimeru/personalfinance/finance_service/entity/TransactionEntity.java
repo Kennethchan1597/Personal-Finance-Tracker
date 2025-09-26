@@ -3,11 +3,11 @@ package com.ashimeru.personalfinance.finance_service.entity;
 import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +24,11 @@ public class TransactionEntity {
     @Column(nullable = false)
     @Setter
     private Long userId;
-    private String type;
     private String category;
     private Double amount;
     private LocalDate date;
     private String description;
+    @Enumerated(EnumType.STRING)
+    @Setter
+    private CurrencyType currency;
 }
