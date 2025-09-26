@@ -35,8 +35,14 @@ public class UserEntity {
   @Enumerated(EnumType.STRING)
   @Column(name = "role")
   private UserRole role;
+  @Builder.Default
   @Column(nullable = false)
-  private boolean verified;
+  private boolean verified = false;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "default_currency", nullable = false)
+  private CurrencyType defaultCurrency;
+
 
   public boolean isVerified() {
     return verified;
