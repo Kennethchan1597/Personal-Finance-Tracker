@@ -16,6 +16,7 @@ public class EntityMapper {
     .userName(sd.getUserName())
     .password(this.passwordEncoder.encode(sd.getPassword()))
     .role(UserRole.USER)
+    .defaultCurrency(sd.getDefaultCurrency())
     .build();
   }
 }

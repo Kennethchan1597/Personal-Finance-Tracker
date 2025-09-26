@@ -1,5 +1,6 @@
 package com.ashimeru.personalfinance.demo_auth_service.dto;
 
+import com.ashimeru.personalfinance.demo_auth_service.entity.CurrencyType;
 import com.ashimeru.personalfinance.demo_auth_service.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,4 +17,5 @@ public class UserDto {
   private String userName;
   private String email;
   private UserRole role;
+  private CurrencyType defaultCurrency;
 }

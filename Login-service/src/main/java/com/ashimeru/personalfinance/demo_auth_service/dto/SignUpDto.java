@@ -1,5 +1,6 @@
 package com.ashimeru.personalfinance.demo_auth_service.dto;
 
+import com.ashimeru.personalfinance.demo_auth_service.entity.CurrencyType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,4 +23,5 @@ public class SignUpDto {
   @Email
   @NotBlank
   private String email;
+  private CurrencyType defaultCurrency;
 }

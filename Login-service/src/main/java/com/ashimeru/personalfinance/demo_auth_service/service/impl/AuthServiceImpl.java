@@ -75,8 +75,11 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public UserDto login(LoginDto loginDto) {
     this.findByUserName(loginDto.getUsername()).orElseThrow(() -> new AppException(ErrorDto.Code.USER_NOT_FOUND));
-    if (loginDto.getPassword() == null || loginDto.getPassword().isEmpty())
+    if (loginDto.getPassword() == null || loginDto.getPassword().isEmpty()) {
+      System.err.println("Not Here");
+      System.out.println("ABC");
       throw new AppException(ErrorDto.Code.INVALID_PASSWORD);
+    }
     try {
       Authentication auth = this.authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(loginDto.getUsername(),
@@ -85,7 +88,9 @@ public class AuthServiceImpl implements AuthService {
       UserEntity user = userd.getUserEntity();
       return this.dtoMapper.map(user);
     } catch (BadCredentialsException e) {
-      throw new AppException(ErrorDto.Code.INVALID_PASSWORD);
+      System.out.println("DEF");
+      System.err.println("Here");
+      throw new AppException(ErrorDto.Code.WRONG_PASSWORD);
     }
   }
 
