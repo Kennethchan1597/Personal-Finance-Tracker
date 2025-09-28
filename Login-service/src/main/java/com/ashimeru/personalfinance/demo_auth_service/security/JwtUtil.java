@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.ashimeru.personalfinance.demo_auth_service.dto.ErrorDto.Code;
 import com.ashimeru.personalfinance.demo_auth_service.dto.UserDto;
 import com.ashimeru.personalfinance.demo_auth_service.exception.AppException;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -24,8 +24,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtUtil {
-  @Value("${jwt.secretkey}")
-  private String SECRET_KEY;
+  private final String SECRET_KEY;
+
+  public JwtUtil() {
+    Dotenv dotenv = Dotenv.load();
+    this.SECRET_KEY = dotenv.get("JWT_SECRETKEY");
+  }
 
   public String generateToken(UserDto user) {
     Date expTime = new Date(System.currentTimeMillis() + 1000 * 60 * 30);

@@ -1,8 +1,6 @@
 server:
   port: 8091
 
-jwt.secretkey: ${JWT_SECRETKEY:}
-
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
