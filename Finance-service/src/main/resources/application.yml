@@ -1,4 +1,4 @@
 server:
   port: 8091
 
-jwt.secretkey: MdhAb+Ft2eNt/vH0wl9six4HZDojUGjO3EVpQ0ApIrA=
+jwt.secretkey: ${JWT_SECRETKEY:}
