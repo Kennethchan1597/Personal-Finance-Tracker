@@ -12,6 +12,7 @@ public class DtoMapper {
     .userName(u.getUserName())
     .email(u.getEmail())
     .role(u.getRole())
+    .defaultCurrency(u.getDefaultCurrency())
     .build();
   }
 

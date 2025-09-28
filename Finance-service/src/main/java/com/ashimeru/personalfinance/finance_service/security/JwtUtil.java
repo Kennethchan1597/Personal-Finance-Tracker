@@ -37,8 +37,17 @@ public class JwtUtil {
     }
 
     public CurrencyType extractDefaultCurrency(String token) {
-        return extractAllClaims(token).get("defaultCurrency", CurrencyType.class);
+        String currencyStr = extractAllClaims(token).get("defaultCurrency", String.class);
+        if (currencyStr == null) {
+            return CurrencyType.HKD;
+        }
+        try {
+            return CurrencyType.valueOf(currencyStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return CurrencyType.HKD;
+        }
     }
+    
 
     public boolean isTokenValid(String token) {
         try {
