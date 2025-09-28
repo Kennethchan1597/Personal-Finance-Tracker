@@ -38,6 +38,7 @@ public class JwtUtil {
     claims.put("id", user.getId());
     claims.put("email", user.getEmail());
     claims.put("role", user.getRole());
+    claims.put("defaultCurrency", user.getDefaultCurrency());
 
     return Jwts.builder()
         .setClaims(claims)
