@@ -12,15 +12,12 @@ import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotToken
 import com.ashimeru.personalfinance.demo_auth_service.entity.UserEntity;
 import com.ashimeru.personalfinance.demo_auth_service.exception.AppException;
 import com.ashimeru.personalfinance.demo_auth_service.repository.PasswordResetTokenRepository;
-import com.ashimeru.personalfinance.demo_auth_service.security.JwtUtil;
 import com.ashimeru.personalfinance.demo_auth_service.service.PasswordResetService;
 
 @Service
 public class PasswordResetServiceImpl implements PasswordResetService {
   @Autowired
   private PasswordResetTokenRepository passwordResetTokenRepository;
-  @Autowired
-  private JwtUtil jwtUtil;
   @Autowired
   private PasswordEncoder passwordEncoder;
 
