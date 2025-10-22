@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.ashimeru.personalfinance.demo_auth_service.dto.ErrorDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordResetDto;
-import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotToken;
+import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotTokenEntity;
 import com.ashimeru.personalfinance.demo_auth_service.entity.UserEntity;
 import com.ashimeru.personalfinance.demo_auth_service.exception.AppException;
 import com.ashimeru.personalfinance.demo_auth_service.repository.PasswordResetTokenRepository;
@@ -23,25 +23,25 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
   @Override
   public void savePasswordForgotToken(String token, UserEntity userEntity) {
-    PasswordForgotToken entity = PasswordForgotToken.builder()
+    PasswordForgotTokenEntity entity = PasswordForgotTokenEntity.builder()
         .expiryDate(LocalDateTime.now().plusMinutes(15)).token(token)
         .user(userEntity).build();
     this.passwordResetTokenRepository.save(entity);
   }
 
   @Override
-  public void deleteToken(PasswordForgotToken passwordResetToken) {
+  public void deleteToken(PasswordForgotTokenEntity passwordResetToken) {
     this.passwordResetTokenRepository.delete(passwordResetToken);
   }
 
   @Override
-  public Optional<PasswordForgotToken> findByToken(String token) {
+  public Optional<PasswordForgotTokenEntity> findByToken(String token) {
     return this.passwordResetTokenRepository.findByToken(token);
   }
 
   @Override
   public boolean isVerifiedToken(String token) {
-    PasswordForgotToken passwordForgotToken = this.findByToken(token)
+    PasswordForgotTokenEntity passwordForgotToken = this.findByToken(token)
         .orElseThrow(() -> new AppException(ErrorDto.Code.TOKEN_INVALID));
     if (passwordForgotToken.isExpired())
       throw new AppException(ErrorDto.Code.TOKEN_EXPIRED);

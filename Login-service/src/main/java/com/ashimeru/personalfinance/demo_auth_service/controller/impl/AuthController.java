@@ -12,7 +12,7 @@ import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordForgotDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordResetDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.SignUpDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.UserDto;
-import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotToken;
+import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotTokenEntity;
 import com.ashimeru.personalfinance.demo_auth_service.entity.UserEntity;
 import com.ashimeru.personalfinance.demo_auth_service.entity.VerificationTokenEntity;
 import com.ashimeru.personalfinance.demo_auth_service.exception.AppException;
@@ -90,7 +90,7 @@ public class AuthController implements AuthOperation {
 
   @Override
   public ResponseEntity<String> resetPassword(String token, PasswordResetDto dto) {
-      PasswordForgotToken passwordForgotToken = this.passwordResetService.findByToken(token)
+      PasswordForgotTokenEntity passwordForgotToken = this.passwordResetService.findByToken(token)
         .orElseThrow( () -> new AppException(ErrorDto.Code.TOKEN_INVALID));
       UserEntity user = passwordForgotToken.getUser();
       this.passwordResetService.resetPassword(user, dto);
