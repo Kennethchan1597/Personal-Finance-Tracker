@@ -81,11 +81,17 @@ public class AuthController implements AuthOperation {
   }
 
   @Override
-  public ResponseEntity<String> resetPassword(String token, PasswordResetDto dto) {
+  public ResponseEntity<String> getResetPasswordLink(String token) {
     if (!this.passwordResetService.isVerifiedToken(token)) {
       throw new AppException(ErrorDto.Code.TOKEN_INVALID);
-    }    
-      PasswordForgotToken passwordForgotToken = this.passwordResetService.findByToken(token).get();
+    }
+    return ResponseEntity.ok("Valid token");
+  }
+
+  @Override
+  public ResponseEntity<String> resetPassword(String token, PasswordResetDto dto) {
+      PasswordForgotToken passwordForgotToken = this.passwordResetService.findByToken(token)
+        .orElseThrow( () -> new AppException(ErrorDto.Code.TOKEN_INVALID));
       UserEntity user = passwordForgotToken.getUser();
       this.passwordResetService.resetPassword(user, dto);
       this.authService.saveUser(user);

@@ -28,6 +28,9 @@ public interface AuthOperation {
   @PostMapping(value = "/password/forgot")
   ResponseEntity<String> forgotPassword(@RequestBody PasswordForgotDto dto);
 
+  @GetMapping(value = "/password/reset")
+  ResponseEntity<String> getResetPasswordLink(@RequestParam String token);
+
   @PostMapping(value = "/password/reset")
   ResponseEntity<String> resetPassword(@RequestParam String token, @RequestBody PasswordResetDto dto);
 
