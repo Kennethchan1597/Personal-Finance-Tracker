@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.ashimeru.personalfinance.demo_auth_service.dto.AuthResponseDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.LoginDto;
+import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordForgotDto;
+import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordResetDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.SignUpDto;
 import jakarta.validation.Valid;
 
@@ -22,5 +24,11 @@ public interface AuthOperation {
 
   @GetMapping(value = "/verify")
   ResponseEntity<String> verifyUser(@RequestParam String token);
+
+  @PostMapping(value = "/password/forgot")
+  ResponseEntity<String> forgotPassword(@RequestBody PasswordForgotDto dto);
+
+  @PostMapping(value = "/password/reset")
+  ResponseEntity<String> resetPassword(@RequestParam String token, @RequestBody PasswordResetDto dto);
 
 }
