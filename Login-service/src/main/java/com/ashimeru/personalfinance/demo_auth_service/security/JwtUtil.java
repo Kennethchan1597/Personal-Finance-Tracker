@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.ashimeru.personalfinance.demo_auth_service.dto.ErrorDto.Code;
 import com.ashimeru.personalfinance.demo_auth_service.dto.UserDto;
+import com.ashimeru.personalfinance.demo_auth_service.entity.UserEntity;
 import com.ashimeru.personalfinance.demo_auth_service.exception.AppException;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
@@ -47,6 +48,18 @@ public class JwtUtil {
         .setExpiration(expTime)
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
         .compact();
+  }
+
+  public String generatePasswordResetToken(UserEntity userEntity) {
+    Date expTime = new Date(System.currentTimeMillis() + 1000 * 60 * 15);
+    return Jwts.builder()
+    .setSubject(userEntity.getUserName())
+    .claim("userId", userEntity.getId())
+    .claim("userRole", userEntity.getRole())
+    .setIssuedAt(new Date())
+    .setExpiration(expTime)
+    .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+    .compact();
   }
 
   public String extractUsername(String token) {

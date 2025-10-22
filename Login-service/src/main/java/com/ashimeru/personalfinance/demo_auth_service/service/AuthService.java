@@ -16,4 +16,7 @@ public interface AuthService {
   void register(SignUpDto signUpDto);
 
   UserDto login(LoginDto loginDto);
+
+  
+
 }
