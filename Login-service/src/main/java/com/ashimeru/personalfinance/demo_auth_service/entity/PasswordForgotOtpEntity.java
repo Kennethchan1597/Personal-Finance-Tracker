@@ -14,24 +14,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "password_forgot_token_entity")
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class PasswordForgotTokenEntity {
-  @Id
-  @GeneratedValue (strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String token;
+@Table(name = "Password_Forgot_Otp")
+public class PasswordForgotOtpEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @OneToOne
-  @JoinColumn(name = "user_id")
-  private UserEntity user;
+    @OneToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private UserEntity user;
 
-  private LocalDateTime expiryDate;
+    private String otp;
+    private LocalDateTime expDateTime;
 
-  public boolean isExpired() {
-    return this.expiryDate.isBefore(LocalDateTime.now());
-  }
+    public boolean isExpired() {
+        return this.expDateTime.isBefore(LocalDateTime.now());
+    }
+
 }
+

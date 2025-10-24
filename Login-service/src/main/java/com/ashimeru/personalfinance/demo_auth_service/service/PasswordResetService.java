@@ -2,22 +2,24 @@ package com.ashimeru.personalfinance.demo_auth_service.service;
 
 import java.util.Optional;
 import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordResetDto;
-import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotTokenEntity;
+import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotOtpEntity;
 import com.ashimeru.personalfinance.demo_auth_service.entity.UserEntity;
 
 public interface PasswordResetService {
-  void savePasswordForgotToken(String token, UserEntity userEntity);
+  void savePasswordForgotOtp(String Otp, UserEntity userEntity);
 
-  void deleteToken(PasswordForgotTokenEntity passwordResetToken);
+  void deleteOtp(PasswordForgotOtpEntity Otp);
 
-  Optional<PasswordForgotTokenEntity> findByToken(String token);
+  Optional<PasswordForgotOtpEntity> findByOtp(String Otp);
 
-  boolean isVerifiedToken(String token);
+  Optional<PasswordForgotOtpEntity> findByUser(UserEntity userEntity);
 
-  String generateForgotPasswordToken();
+  Optional<PasswordForgotOtpEntity> findByUserAndOtp(UserEntity userEntity, String otp);
 
-  String generateForgotPasswordLink(String token);
+  String generateForgotPasswordOtp();
  
   void resetPassword(UserEntity userEntity, PasswordResetDto dto);
-  
+
+  boolean verifyOtp(String inputOtp, UserEntity userEntity);
+
 }

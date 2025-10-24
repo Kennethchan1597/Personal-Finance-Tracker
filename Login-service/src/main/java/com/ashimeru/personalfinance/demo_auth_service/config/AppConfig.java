@@ -32,7 +32,6 @@ public class AppConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(c -> c.disable())
         .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
-        .requestMatchers("/dashborad").hasRole("ADMIN")
             .anyRequest().authenticated())
         .sessionManagement(session -> session
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -54,5 +53,4 @@ public class AppConfig {
   public AuthenticationManager authenticationManager(AuthenticationConfiguration c) throws Exception{
     return c.getAuthenticationManager();
   }
-
 }

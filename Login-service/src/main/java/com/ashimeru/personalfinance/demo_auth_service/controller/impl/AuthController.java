@@ -12,7 +12,8 @@ import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordForgotDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordResetDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.SignUpDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.UserDto;
-import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotTokenEntity;
+import com.ashimeru.personalfinance.demo_auth_service.dto.VerifyOtpDto;
+import com.ashimeru.personalfinance.demo_auth_service.entity.PasswordForgotOtpEntity;
 import com.ashimeru.personalfinance.demo_auth_service.entity.UserEntity;
 import com.ashimeru.personalfinance.demo_auth_service.entity.VerificationTokenEntity;
 import com.ashimeru.personalfinance.demo_auth_service.exception.AppException;
@@ -67,12 +68,19 @@ public class AuthController implements AuthOperation {
     if (userOpt.isEmpty())
       throw new AppException(ErrorDto.Code.USER_NOT_FOUND);
     UserEntity userEntity = userOpt.get();
-    String token = this.passwordResetService.generateForgotPasswordToken();
-    String emailLink =
-        this.passwordResetService.generateForgotPasswordLink(token);
+    Optional<PasswordForgotOtpEntity> oldOtp =
+        this.passwordResetService.findByUser(userEntity);
+    if (oldOtp.isPresent()) {
+      PasswordForgotOtpEntity PasswordForgotOtpEntity = oldOtp.get();
+      if (!PasswordForgotOtpEntity.isExpired()) {
+        return ResponseEntity.ok().body("Email Has Been Sent.");
+      }
+      this.passwordResetService.deleteOtp(PasswordForgotOtpEntity);
+    }
+    String newOtp = this.passwordResetService.generateForgotPasswordOtp();
     try {
-      this.emailService.sendPasswordResetEmail(dto.getEmail(), emailLink);
-      this.passwordResetService.savePasswordForgotToken(token, userEntity);
+      this.emailService.sendPasswordResetEmail(dto.getEmail(), newOtp);
+      this.passwordResetService.savePasswordForgotOtp(newOtp, userEntity);
       return ResponseEntity.ok()
           .body("Reset Email sent, please reset your password in 15 minutes.");
     } catch (MessagingException e) {
@@ -81,21 +89,28 @@ public class AuthController implements AuthOperation {
   }
 
   @Override
-  public ResponseEntity<String> getResetPasswordLink(String token) {
-    if (!this.passwordResetService.isVerifiedToken(token)) {
-      throw new AppException(ErrorDto.Code.TOKEN_INVALID);
-    }
-    return ResponseEntity.ok("Valid token");
+  public ResponseEntity<String> resetPassword(PasswordResetDto dto) {
+    String otp = dto.getOtp();
+    String userEmail = dto.getEmail();
+    UserEntity userEntity = this.authService.findByEmail(userEmail)
+        .orElseThrow(() -> new AppException(ErrorDto.Code.USER_NOT_FOUND));
+    PasswordForgotOtpEntity otpEntity =
+        this.passwordResetService.findByUserAndOtp(userEntity, otp)
+            .orElseThrow(() -> new AppException(ErrorDto.Code.TOKEN_INVALID));
+    this.passwordResetService.resetPassword(userEntity, dto);
+    this.authService.saveUser(userEntity);
+    this.passwordResetService.deleteOtp(otpEntity);
+    return ResponseEntity.ok().body("Password has been reset.");
   }
 
   @Override
-  public ResponseEntity<String> resetPassword(String token, PasswordResetDto dto) {
-      PasswordForgotTokenEntity passwordForgotToken = this.passwordResetService.findByToken(token)
-        .orElseThrow( () -> new AppException(ErrorDto.Code.TOKEN_INVALID));
-      UserEntity user = passwordForgotToken.getUser();
-      this.passwordResetService.resetPassword(user, dto);
-      this.authService.saveUser(user);
-      this.passwordResetService.deleteToken(passwordForgotToken);
-      return ResponseEntity.ok().body("Password has been reset.");
+  public ResponseEntity<String> verifyOtp(VerifyOtpDto dto) {
+    String userEmail = dto.getEmail();
+    UserEntity userEntity = this.authService.findByEmail(userEmail)
+        .orElseThrow(() -> new AppException(ErrorDto.Code.USER_NOT_FOUND));
+    boolean result =
+        this.passwordResetService.verifyOtp(dto.getInputOtp(), userEntity);
+    return result ? ResponseEntity.ok().body("Verified")
+        : ResponseEntity.badRequest().body("Verification failed");
   }
 }

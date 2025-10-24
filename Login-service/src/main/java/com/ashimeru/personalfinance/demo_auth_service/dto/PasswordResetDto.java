@@ -11,4 +11,6 @@ public class PasswordResetDto {
   private String newPassword;
   @NotBlank
   private String confirmPassword;
+  private String email;
+  private String otp;
 }

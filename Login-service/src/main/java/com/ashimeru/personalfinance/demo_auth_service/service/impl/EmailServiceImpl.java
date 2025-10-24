@@ -49,36 +49,38 @@ public class EmailServiceImpl implements EmailService {
   }
 
   @Override
-  public boolean sendPasswordResetEmail(String email, String url) 
-  throws MessagingException {
+  public boolean sendPasswordResetEmail(String email, String otp)
+      throws MessagingException {
+    // Generate a 6-digit OTP
+
     MimeMessage message = emailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-    String subject = "Password Reset";
+    String subject = "Your One-Time Password (OTP)";
     String htmlMessage =
         """
-                <html>
-                  <body style="font-family: Arial, sans-serif; line-height: 1.6;">
-                    <h2>Reset Password</h2>
-                    <p>Click the link below to reset the password in 15 minutes.</p>
-                    <p>
-                      <a href="%s" style="background-color:rgb(176, 64, 64); color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">
-                        Reset Password
-                      </a>
-                    </p>
-                    <p>Click the link below to reset the password in 15 minutes.</p>
-                    <p>If you didn't request this, just ignore this email.</p>
-                    <p>– The Team</p>
-                  </body>
-                </html>
+            <html>
+              <body style="font-family: Arial, sans-serif; line-height: 1.6;">
+                <h2>Your OTP Code</h2>
+                <p>Use the following 6-digit code to reset your password. It expires in 15 minutes.</p>
+                <p style="font-size: 24px; font-weight: bold; color: #B04040;">%s</p>
+                <p>If you didn't request this, just ignore this email.</p>
+                <p>– The Team</p>
+              </body>
+            </html>
             """
-            .formatted(url);
+            .formatted(otp);
 
     helper.setTo(email);
     helper.setSubject(subject);
     helper.setText(htmlMessage, true);
 
     emailSender.send(message);
+
+    // optionally return the OTP if you want to save it to database
+    // or handle it in your service layer
+    System.out.println("Generated OTP: " + otp);
+
     return true;
   }
 }

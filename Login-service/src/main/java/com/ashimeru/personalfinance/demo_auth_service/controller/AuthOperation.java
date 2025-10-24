@@ -11,6 +11,7 @@ import com.ashimeru.personalfinance.demo_auth_service.dto.LoginDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordForgotDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.PasswordResetDto;
 import com.ashimeru.personalfinance.demo_auth_service.dto.SignUpDto;
+import com.ashimeru.personalfinance.demo_auth_service.dto.VerifyOtpDto;
 import jakarta.validation.Valid;
 
 @RequestMapping(value = "/auth")
@@ -28,10 +29,10 @@ public interface AuthOperation {
   @PostMapping(value = "/password/forgot")
   ResponseEntity<String> forgotPassword(@RequestBody PasswordForgotDto dto);
 
-  @GetMapping(value = "/password/reset")
-  ResponseEntity<String> getResetPasswordLink(@RequestParam String token);
-
   @PostMapping(value = "/password/reset")
-  ResponseEntity<String> resetPassword(@RequestParam String token, @RequestBody PasswordResetDto dto);
+  ResponseEntity<String> resetPassword(@RequestBody PasswordResetDto dto);
+
+  @PostMapping(value = "/password/fotgot/otp")
+  ResponseEntity<String> verifyOtp(@RequestBody VerifyOtpDto dto);
 
 }
