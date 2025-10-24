@@ -32,7 +32,7 @@ public interface AuthOperation {
   @PostMapping(value = "/password/reset")
   ResponseEntity<String> resetPassword(@RequestBody PasswordResetDto dto);
 
-  @PostMapping(value = "/password/fotgot/otp")
+  @PostMapping(value = "/password/forgot/otp")
   ResponseEntity<String> verifyOtp(@RequestBody VerifyOtpDto dto);
 
 }
