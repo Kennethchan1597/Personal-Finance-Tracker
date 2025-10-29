@@ -1,11 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
-import authAxios from "../api/api";
-import { RootStackParamList } from "../App";
-import { AuthLayout } from "../components/AuthLayout";
+import authAxios from "../../api/authApi";
+import { AuthLayout } from "../../components/AuthLayout";
+import { AuthStackParamList } from "../../navigation/AuthNavigator";
 
-type ResetPasswordScreenProps = NativeStackScreenProps<RootStackParamList, "ResetPassword">
+type ResetPasswordScreenProps = NativeStackScreenProps<AuthStackParamList, "ResetPassword">
 
 export default function ResetPasswordScreen({ route, navigation }: ResetPasswordScreenProps) {
 
@@ -21,7 +21,7 @@ export default function ResetPasswordScreen({ route, navigation }: ResetPassword
         await authAxios.post("/password/reset", PasswordResetDto);
         Alert.alert("Reset Password successfully");
         setTimeout(() => {
-          navigation.navigate("Auth");
+          navigation.replace("Auth");
         }, 2000); // 2000 milliseconds = 2 seconds
       } catch (error: any) {
         setError(error.response.data.message);

@@ -2,11 +2,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from "react-native-confirmation-code-field";
-import authAxios from "../api/api";
-import { RootStackParamList } from "../App";
-import { AuthLayout } from "../components/AuthLayout";
+import authAxios from "../../api/authApi";
+import { AuthLayout } from "../../components/AuthLayout";
+import { AuthStackParamList } from "../../navigation/AuthNavigator";
 
-type OneTimePasswordScreenProps = NativeStackScreenProps<RootStackParamList, "OneTimePassword">;
+type OneTimePasswordScreenProps = NativeStackScreenProps<AuthStackParamList, "OneTimePassword">;
 
 export default function OneTimePasswordScreen({ route, navigation }: OneTimePasswordScreenProps) {
 
@@ -23,7 +23,7 @@ export default function OneTimePasswordScreen({ route, navigation }: OneTimePass
   const handleSubmit = async () => {
     const success = await handleVerifyOtp();
     if (success) {
-      navigation.navigate("ResetPassword", { email: route.params.email, otp: value });
+      navigation.replace("ResetPassword", { email: route.params.email, otp: value });
     }
   }
 
@@ -56,7 +56,7 @@ export default function OneTimePasswordScreen({ route, navigation }: OneTimePass
               <View key={index}
                 onLayout={getCellOnLayoutHandler(index)}
                 style={[styles.cell, { borderColor: isFocused ? "#007AFF" : "#ccc", }]} >
-                <Text > {symbol || (isFocused ? <Cursor cursorSymbol="|💬|" /> : null)} </Text>
+                <Text > {symbol || (isFocused ? <Cursor cursorSymbol="🤷‍♀️" /> : null)} </Text>
               </View>
             )
           }} />

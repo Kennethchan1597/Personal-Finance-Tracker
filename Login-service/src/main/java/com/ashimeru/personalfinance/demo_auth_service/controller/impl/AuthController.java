@@ -64,10 +64,8 @@ public class AuthController implements AuthOperation {
 
   @Override
   public ResponseEntity<String> forgotPassword(PasswordForgotDto dto) {
-    Optional<UserEntity> userOpt = this.authService.findByEmail(dto.getEmail());
-    if (userOpt.isEmpty())
-      throw new AppException(ErrorDto.Code.USER_NOT_FOUND);
-    UserEntity userEntity = userOpt.get();
+    UserEntity userEntity = this.authService.findByEmail(dto.getEmail())
+        .orElseThrow(() -> new AppException(ErrorDto.Code.USER_NOT_FOUND));
     Optional<PasswordForgotOtpEntity> oldOtp =
         this.passwordResetService.findByUser(userEntity);
     if (oldOtp.isPresent()) {
@@ -82,7 +80,7 @@ public class AuthController implements AuthOperation {
       this.emailService.sendPasswordResetEmail(dto.getEmail(), newOtp);
       this.passwordResetService.savePasswordForgotOtp(newOtp, userEntity);
       return ResponseEntity.ok()
-          .body("Reset Email sent, please reset your password in 15 minutes.");
+          .body("Email sent, please reset your password in 15 minutes.");
     } catch (MessagingException e) {
       throw new AppException(ErrorDto.Code.EMAIL_SEND_FAILED);
     }

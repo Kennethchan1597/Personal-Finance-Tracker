@@ -2,13 +2,15 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import authAxios from "../api/api";
-import { RootStackParamList } from "../App";
+import authAxios from "../api/authApi";
+import { useAuth } from "../context/AuthContext";
+import { AuthStackParamList } from "../navigation/AuthNavigator";
 import { AuthLayout } from "./AuthLayout";
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Auth">;
+type LoginScreenNavigationProp = NativeStackNavigationProp<AuthStackParamList, "Auth">;
 
 export default function LoginForm() {
+  const { login } = useAuth();
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const [username, setUsername] = useState("");
@@ -18,13 +20,14 @@ export default function LoginForm() {
   const handleLogin = async () => {
     try {
       const loginDto = { username, password };
-      await authAxios.post("/login", loginDto);
+      const response = await authAxios.post("/login", loginDto);
+      await login(response.data.token, username); // ✅ use context instead of manual AsyncStorage
       setError({ errorMessage: "" });
     } catch (error: any) {
-      const errorMessage = error.response.data.message;
+      const errorMessage = error.response?.data?.message || "Login failed";
       setError({ errorMessage });
     }
-  }
+  };
 
   return (
     <AuthLayout>

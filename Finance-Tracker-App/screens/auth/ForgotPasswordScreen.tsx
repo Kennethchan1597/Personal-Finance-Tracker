@@ -1,15 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Alert, Button, KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
-import authAxios from "../api/api";
-import { RootStackParamList } from "../App";
+import authAxios from "../../api/authApi";
+import { AuthStackParamList } from "../../navigation/AuthNavigator";
 
-type ForgotPasswordScreenProp = NativeStackScreenProps<RootStackParamList, "ForgotPassword">;
+
+type ForgotPasswordScreenProp = NativeStackScreenProps<AuthStackParamList, "ForgotPassword">;
 
 export default function ForgotPasswordScreen({ navigation }: ForgotPasswordScreenProp) {
 
   const [email, setEmail] = useState("");
-  const [message, setMessage] =useState("");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState<{ errorMessage?: string }>({});
 
   const handleSubmit = async () => {
@@ -19,7 +20,7 @@ export default function ForgotPasswordScreen({ navigation }: ForgotPasswordScree
       if (success) {
         console.log(message);
         Alert.alert(message);
-        navigation.navigate("OneTimePassword", {email: email});
+        navigation.replace("OneTimePassword", { email: email });
       }
     } catch (error: any) {
       setError(error.response.data.message);
@@ -30,13 +31,14 @@ export default function ForgotPasswordScreen({ navigation }: ForgotPasswordScree
     try {
       const response = await authAxios.post("/password/forgot", { email });
       setMessage(response.data);
+      console.log(response.data);
       setError({ errorMessage: "" });
       return true;
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Unknown error";
       setError({ errorMessage });
       return false;
-    }    
+    }
   }
 
   return (

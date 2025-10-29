@@ -6,11 +6,11 @@ const CONTAINER_WIDTH = 80;
 const PADDING = 6;
 
 export default function FormToggleButton({ isLogin, onClick }: { isLogin: boolean, onClick: () => void }) {
-  const translateX = useRef(new Animated.Value(isLogin ? 0 : CONTAINER_WIDTH - HANDLE_SIZE - PADDING*2)).current;
+  const translateX = useRef(new Animated.Value(isLogin ? 0 : CONTAINER_WIDTH - HANDLE_SIZE - PADDING * 2)).current;
 
   useEffect(() => {
     Animated.spring(translateX, {
-      toValue: isLogin ? 0 : CONTAINER_WIDTH - HANDLE_SIZE - PADDING*2,
+      toValue: isLogin ? 0 : CONTAINER_WIDTH - HANDLE_SIZE - PADDING * 2,
       useNativeDriver: true,
       bounciness: 10,
     }).start();
@@ -31,14 +31,14 @@ export default function FormToggleButton({ isLogin, onClick }: { isLogin: boolea
 const styles = StyleSheet.create({
   container: {
     width: CONTAINER_WIDTH,
-    height: HANDLE_SIZE + PADDING*2,
+    height: HANDLE_SIZE + PADDING * 2,
     backgroundColor: "#333",
     borderRadius: 50,
     padding: PADDING,
     justifyContent: "center",
     overflow: "hidden",
     position: "absolute",
-    bottom: 160,  // distance from bottom of the form
+    bottom: 205,  // distance from bottom of the form
     right: 45,   // distance from right of the form
     zIndex: 10,  // make sure it’s above other elements
   },
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
     position: "absolute",
-    width: CONTAINER_WIDTH - HANDLE_SIZE - PADDING*2,
+    width: CONTAINER_WIDTH - HANDLE_SIZE - PADDING * 2,
     zIndex: 1,
   },
   handle: {

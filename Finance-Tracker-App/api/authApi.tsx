@@ -8,7 +8,7 @@ const authAxios = axios.create({
 // Add token to every request if it exists
 authAxios.interceptors.request.use(
   async (config) => {
-    const token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("authToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -31,7 +31,7 @@ authAxios.interceptors.response.use(
       !publicRoutes.includes(config.url || "")
     ) {
       // Token is invalid or expired
-      await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("authToken");
       console.log("Token expired. Redirect to login.");
       // Optionally, navigate using a navigation ref
     }

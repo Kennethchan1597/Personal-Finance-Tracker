@@ -67,6 +67,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         this.findByUserAndOtp(userEntity, inputOtp)
             .orElseThrow(() -> new AppException(ErrorDto.Code.TOKEN_INVALID));
     if (otpEntity.isExpired()) {
+      this.deleteOtp(otpEntity);
       throw new AppException(ErrorDto.Code.TOKEN_EXPIRED);
     }
     this.PasswordForgotOtpRepository.save(otpEntity);

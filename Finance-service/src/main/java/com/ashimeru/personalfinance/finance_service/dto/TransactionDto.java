@@ -14,6 +14,7 @@ public class TransactionDto {
     private Double amount;
     private LocalDate date;
     private String description;
+    private String type;
     @Enumerated(EnumType.STRING)
     private CurrencyType currency;
     private CurrencyType manualCurrency;

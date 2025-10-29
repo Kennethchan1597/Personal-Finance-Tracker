@@ -11,11 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Table(name = "transactions")
 public class TransactionEntity {
     @Id
@@ -28,6 +31,7 @@ public class TransactionEntity {
     private Double amount;
     private LocalDate date;
     private String description;
+    private String type;
     @Enumerated(EnumType.STRING)
     @Setter
     private CurrencyType currency;

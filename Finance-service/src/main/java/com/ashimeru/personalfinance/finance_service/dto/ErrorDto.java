@@ -19,7 +19,8 @@ public class ErrorDto {
 
   public static enum Code{
     TOKEN_INVALID(1, "Invalid token", HttpStatus.UNAUTHORIZED),
-    TOKEN_EXPIRED(2, "Token expired", HttpStatus.UNAUTHORIZED);
+    TOKEN_EXPIRED(2, "Token expired", HttpStatus.UNAUTHORIZED),
+    TRANSACTION_NOT_FOUND(3, "Transaction Not Found", HttpStatus.NOT_FOUND);
 
     private final HttpStatus httpStatus;
     private final int code;

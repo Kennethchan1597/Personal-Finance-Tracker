@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import authAxios from "../api/api";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import authAxios from "../api/authApi";
 import { AuthLayout } from "./AuthLayout";
 
 export default function RegisterForm() {
@@ -14,8 +14,9 @@ export default function RegisterForm() {
   const handleRegister = async () => {
     try {
       const signUpDto = { username, password, email };
-      await authAxios.post("/register", signUpDto);
+      const response = await authAxios.post("/register", signUpDto);
       setError({ errorMessage: "" });
+      Alert.alert(response.data.message)
     } catch (error: any) {
       const errorMessage = error.response.data.message;
       setError({ errorMessage });
