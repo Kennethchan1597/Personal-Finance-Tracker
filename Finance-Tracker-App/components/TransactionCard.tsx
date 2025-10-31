@@ -11,7 +11,8 @@ import {
   TouchableWithoutFeedback,
   View
 } from "react-native";
-import { transactionAxios } from '../api/transactionsApi';
+
+import transactionAxios from '../api/transactionsApi';
 import { Transaction, useTransaction } from '../context/TransContext';
 import EmojiPicker from './EmojiPicker';
 

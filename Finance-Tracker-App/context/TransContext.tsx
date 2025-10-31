@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { transactionAxios } from "../api/transactionsApi";
+import transactionAxios from "../api/transactionsApi";
+
 
 type TransContextType = {
   date: string,

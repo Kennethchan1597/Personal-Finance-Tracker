@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 const authAxios = axios.create({
-  baseURL: "http://localhost:8090/auth",
+  baseURL: "http://172.20.10.2:8090/auth",
 });
 
 // Add token to every request if it exists

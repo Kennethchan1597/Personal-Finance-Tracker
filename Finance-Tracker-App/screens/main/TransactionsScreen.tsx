@@ -3,7 +3,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Alert, FlatList, Modal, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GestureRecognizer from "react-native-swipe-gestures";
-import { transactionAxios } from "../../api/transactionsApi";
+
+import transactionAxios from "../../api/transactionsApi";
 import TransactionCard from "../../components/TransactionCard";
 import { Transaction, useTransaction } from "../../context/TransContext";
 
