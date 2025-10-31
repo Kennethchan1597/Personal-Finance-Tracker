@@ -58,3 +58,12 @@ Built with a React Native front-end and Java Spring Boot back-end services
     <img src="/README_images/Create_gif.gif" alt="Create Transaction Demo" width="40%" />
   </p>
 </div>
+
+**Update and Delete**
+<br>
+<div>
+  <p align="center">
+    <img src="/README_images/Update_gif.gif" alt="Login Demo" width="40%" />
+    <img src="/README_images/Delete.gif" alt="Create Transaction Demo" width="40%" />
+  </p>
+</div>
