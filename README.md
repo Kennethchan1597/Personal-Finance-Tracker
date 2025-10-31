@@ -35,37 +35,18 @@
       - Finance-Tracker-App/api/api/authApi.js
       - Finance-Tracker-App/api/api/transactionApi.js
       - Replace **localhost** with the **IP Adress** that host the backend services
+    - Start the React Native app(Expo):
+      - npm start
 <p align="center">
   <img src="/README_images/transactionAxios.png" alt="transactionAxios" width="50%" />
 </p>
 <p align="center">
   <img src="/README_images/authAxios.png" alt="authAxios" width="50%" />
 </p>
-    - Start the React Native app(Expo):
-      - npm start
-
-- **Feature Demonstration**
-
-  - 
-  - Uses **Spring Security** and **JWT** for authentication
-  - Connected to a **MySQL** database
-  - Backend handles **password encryption**
-  - Sends automatic registration emails via **Gmail SMTP**
-  
-- 📈 **Front-end Stack tech**
-  - Built with **React.js**
-  - Styled using **Tailwind CSS and Shadcn UI**
-  - **Axios** used for API calls
-  - **React Router** for page navigation
 
 ## Architecture Diagram
 
-<p align="center">
-  <img src="images/System-Architecture.png" alt="System Architecture" />
-</p>
-<p align="center">
-  <img src="images/System-Flow-Chart.png" alt="System Flow Chart"/>
-</p>
+## Feature Demonstration
 
 ## UI Preview
 
