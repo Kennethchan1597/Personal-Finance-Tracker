@@ -3,7 +3,7 @@ import axios from "axios";
 import { globalLogout } from "../context/AuthContext";
 
 const transactionAxios = axios.create({
-  baseURL: "http://172.20.10.2:8091/transactions",
+  baseURL: "http://localhost:8091/transactions",
   timeout: 10000,
 });
 

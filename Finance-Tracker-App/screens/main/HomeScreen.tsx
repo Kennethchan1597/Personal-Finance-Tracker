@@ -35,7 +35,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Hello,</Text>
-      <Text style={styles.header}>guest</Text>
+      <Text style={styles.header}>{userDto?.username}</Text>
 
       {/* Balance Card */}
       <View style={styles.card}>
