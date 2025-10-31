@@ -2,8 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { globalLogout } from "../context/AuthContext";
 
-export const transactionAxios = axios.create({
-  baseURL: "http://localhost/transactions",
+const transactionAxios = axios.create({
+  baseURL: "http://localhost:8091/transactions",
   timeout: 10000,
 });
 
@@ -40,3 +40,5 @@ transactionAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default transactionAxios;
