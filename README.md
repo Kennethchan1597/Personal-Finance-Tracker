@@ -45,10 +45,11 @@
 </p>
 
 ## Architecture Diagram
+<p align="center">
+  <img src="/README_images/Finance-Tracker-App.png" alt="authAxios" width="50%" />
+</p>
 
 ## Feature Demonstration
 
 ## UI Preview
-
-![UI Screenshot](images/ui-screenshot.png)
 
