@@ -8,7 +8,7 @@
   - Provide account security with JWT authentication
 
 ## Repository Structure 🔥
-  - 1. Finance-Tracker-App
+Finance-Tracker-App
     - A **React Native** mobile application
     - Communicates with the backend Java Spring APIs via **Axios HTTP requests**
   - 2. Finance-Service
