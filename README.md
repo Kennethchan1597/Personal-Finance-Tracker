@@ -54,9 +54,7 @@ Built with a React Native front-end and Java Spring Boot back-end services
 <br>
 <div>
   <p align="center">
-    <img src="/README_images/Login_gif.gif" alt="authAxios" width="40%" />
-  </p>
-  <p align="center">
-    <img src="/README_images/Create_gif.gif" alt="authAxios" width="40%" />
+    <img src="/README_images/Login_gif.gif" alt="Login Demo" width="40%" />
+    <img src="/README_images/Create_gif.gif" alt="Create Transaction Demo" width="40%" />
   </p>
 </div>
