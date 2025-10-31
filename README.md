@@ -36,10 +36,10 @@
       - Finance-Tracker-App/api/api/transactionApi.js
       - Replace **localhost** with the **IP Adress** that host the backend services
 <p align="center">
-  <img src="/README_images/transactionAxios.png" alt="transactionAxios" />
+  <img src="/README_images/transactionAxios.png" alt="transactionAxios" width="50%" />
 </p>
 <p align="center">
-  <img src="/README_images/authAxios.png" alt="authAxios" />
+  <img src="/README_images/authAxios.png" alt="authAxios" width="50%" />
 </p>
     - Start the React Native app(Expo):
       - npm start
