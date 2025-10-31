@@ -57,10 +57,10 @@
 
 
 <p align="center">
-  <img src="/Readme_pictures/transactionAxios.png" alt="transactionAxios" />
+  <img src="/README_images/transactionAxios.png" alt="transactionAxios" />
 </p>
 <p align="center">
-  <img src="/Readme_pictures/authAxios.png" alt="authAxios" />
+  <img src="/README_images/authAxios.png" alt="authAxios" />
 </p>
 
 <p align="center">
