@@ -1,7 +1,7 @@
 # Personal Finance Tracker App
 
 ## Introduction 💸
-- Built with a React Native front-end and Java Spring Boot back-end services
+Built with a React Native front-end and Java Spring Boot back-end services
 - Main Functions:
   - Track income and expenses
   - View transaction history
@@ -11,7 +11,7 @@
 Finance-Tracker-App
     - A **React Native** mobile application
     - Communicates with the backend Java Spring APIs via **Axios HTTP requests**
-  - 2. Finance-Service
+- 2. Finance-Service
     - Java Spring Boot RESTful API handling all transaction logic:
       - Create, Read, Update, Delete (CRUD) transactions
       - Persist data to a database
