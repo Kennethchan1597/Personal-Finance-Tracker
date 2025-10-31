@@ -1,13 +1,13 @@
 # Personal Finance Tracker App
 
-- 💸 **Introduction**
+## Introduction
 - Built with a React Native front-end and Java Spring Boot back-end services
 - Main Functions:
   - Track income and expenses
   - View transaction history
   - Provide account security with JWT authentication
 
-- 🔥 **Repository Structure**
+## Repository Structure
   - 1. Finance-Tracker-App
     - A **React Native** mobile application
     - Communicates with the backend Java Spring APIs via **Axios HTTP requests**
@@ -23,7 +23,7 @@
       - JWT-based authentication
       - Persist user data to a database
   
-- **Setup Instructions**
+## Setup Instructions
   - Backend Setup
     - Login-Service and Finance-Service:
       - Run both Spring Boot applications on your local machine or server
@@ -46,10 +46,9 @@
 
 ## Architecture Diagram
 <p align="center">
-  <img src="/README_images/Finance-Tracker-App.png" alt="authAxios" width="50%" />
+  <img src="/README_images/Finance-Tracker-App.png" alt="authAxios" width="100%" />
 </p>
 
 ## Feature Demonstration
 
-## UI Preview
 
