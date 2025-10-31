@@ -9,7 +9,7 @@ export default function RootNavigator() {
   if (isLoggedIn === null) return null;
 
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       {isLoggedIn ? <MainAppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );

@@ -9,7 +9,7 @@ public class DtoMapper {
   public UserDto map(UserEntity u){
     return UserDto.builder()
     .id(u.getId())
-    .userName(u.getUserName())
+    .username(u.getUserName())
     .email(u.getEmail())
     .role(u.getRole())
     .defaultCurrency(u.getDefaultCurrency())

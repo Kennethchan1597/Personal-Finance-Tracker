@@ -1,4 +1,5 @@
-import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Keyboard,
@@ -29,6 +30,21 @@ export default function EmojiPicker({ visible, onClose, onSelect }: EmojiPickerP
     "🛒": "Shopping",
   });
 
+  useEffect(() => {
+    const loadEmojis = async () => {
+      const saved = await AsyncStorage.getItem("categoryEmojis");
+      if (saved) {
+        setEmojis(JSON.parse(saved));
+      }
+    };
+    loadEmojis();
+  }, []);
+
+  const saveEmojis = async (updated: Record<string, string>) => {
+    setEmojis(updated);
+    await AsyncStorage.setItem("categoryEmojis", JSON.stringify(updated));
+  };
+
   const [newIcon, setNewIcon] = useState("");
   const [newCategory, setNewCategory] = useState("");
   const [addModalVisible, setAddModalVisible] = useState(false);
@@ -38,20 +54,20 @@ export default function EmojiPicker({ visible, onClose, onSelect }: EmojiPickerP
 
   const emojiKeys = Object.keys(emojis);
 
-  const handleAddCategory = () => {
+  const handleAddCategory = async() => {
     if (newIcon.trim() && newCategory.trim()) {
-      setEmojis((prev) => ({ ...prev, [newIcon]: newCategory }));
+      await saveEmojis({ ...emojis, [newIcon]: newCategory });
       setNewIcon("");
       setNewCategory("");
       setAddModalVisible(false);
     }
   };
 
-  const handleRemoveCategory = () => {
+  const handleRemoveCategory = async() => {
     if (!removeCategory || !removeIcon) return;
     const updatedEmojis = { ...emojis };
     delete updatedEmojis[removeIcon];
-    setEmojis(updatedEmojis);
+    await saveEmojis(updatedEmojis);
     setRemoveIcon("");
     setRemoveCategory("");
     setRemoveModalVisible(false);

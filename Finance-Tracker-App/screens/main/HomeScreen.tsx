@@ -5,38 +5,37 @@ import TransactionCard from "../../components/TransactionCard";
 import { useAuth } from "../../context/AuthContext";
 import { useTransaction } from "../../context/TransContext";
 
+
 export default function HomeScreen() {
 
-  const { username } = useAuth();
+  const { userDto } = useAuth();
   const [error, setError] = useState("");
   const [type, setType] = useState<"INCOME" | "EXPENSE">("EXPENSE");
   const [transactionCardVisible, setTransactionCardVisible] = useState<boolean>(false);
   const { balance, transactions } = useTransaction();
+  const [isCreate, setIsCreate] = useState<boolean>(true);
 
   const handleAddIncome = () => {
+    setIsCreate(true);
     setType("INCOME");
     setTransactionCardVisible(true);
   }
 
   const handleAddExpense = () => {
+    setIsCreate(true);
     setType("EXPENSE");
     setTransactionCardVisible(true);
   }
 
-  const handleDownload = () => {
-
-  }
-
   const handlers: Record<string, () => void> = {
     "Add Income": handleAddIncome,
-    "Add Expense": handleAddExpense,
-    "Download": handleDownload,
+    "Add Expense": handleAddExpense
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Hello,</Text>
-      <Text style={styles.header}>{username}</Text>
+      <Text style={styles.header}>guest</Text>
 
       {/* Balance Card */}
       <View style={styles.card}>
@@ -46,7 +45,7 @@ export default function HomeScreen() {
 
       {/* Quick Actions */}
       <View style={styles.quickActions}>
-        {["Add Income", "Add Expense", "Downlaod"].map((action) => (
+        {["Add Income", "Add Expense"].map((action) => (
           <Pressable key={action} style={styles.actionButton}
             onPress={handlers[action]}>
             <Text style={styles.actionText}>{action}</Text>
@@ -64,13 +63,13 @@ export default function HomeScreen() {
           renderItem={({ item }) => (
             <View style={styles.transaction}>
               <Text style={{ fontSize: 15 }}>{item.category}</Text>
-              <Text style={{ color: item.type === "INCOME" ? "green" : "red" }}>{item.amount}</Text>
+              <Text style={{ color: item.type === "INCOME" ? "green" : "red" }}>{item.type === "INCOME" ? "+" : "-"}${item.amount}</Text>
             </View>
           )}
         />
       </View>
 
-      <TransactionCard visible={transactionCardVisible} onClose={() => setTransactionCardVisible(false)} type={type} />
+      <TransactionCard visible={transactionCardVisible} onClose={() => setTransactionCardVisible(false)} type={type} isCreate={isCreate} />
 
     </SafeAreaView>
   );
@@ -108,8 +107,9 @@ const styles = StyleSheet.create({
   },
   quickActions: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     marginBottom: 16,
+    gap: 12,
   },
   actionButton: {
     backgroundColor: "#2e86de",

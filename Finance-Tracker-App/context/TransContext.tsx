@@ -31,7 +31,7 @@ const TransContext = createContext<TransContextType>({
   refreshTransactions: () => { },
 });
 
-type Transaction = {
+export type Transaction = {
   id: number;
   amount: string;
   description: string;
@@ -86,5 +86,3 @@ export const TransProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 }
 
 export const useTransaction = () => useContext(TransContext);
-
-{/* getAlltransactions, return json array -> const transactions = [{...amount}] Flatlist data key render = () => {retuurn component} */ }

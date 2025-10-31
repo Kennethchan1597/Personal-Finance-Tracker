@@ -21,7 +21,9 @@ export default function LoginForm() {
     try {
       const loginDto = { username, password };
       const response = await authAxios.post("/login", loginDto);
-      await login(response.data.token, username); // ✅ use context instead of manual AsyncStorage
+      const userDto = response.data.user
+      console.log(userDto);
+      await login(response.data.token, userDto ); // ✅ use context instead of manual AsyncStorage
       setError({ errorMessage: "" });
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Login failed";
@@ -34,7 +36,7 @@ export default function LoginForm() {
       <View style={{ top: 60 }}>
         <Text style={styles.header}>Login</Text>
         <Text style={styles.label}>Username</Text>
-        <TextInput value={username} onChangeText={setUsername} style={styles.input} placeholder="username" />
+        <TextInput value={username} onChangeText={setUsername} style={styles.input} placeholder="username" keyboardType="ascii-capable" />
         <Text style={styles.label}>Password</Text>
         <TextInput value={password} onChangeText={setPassword} style={styles.input} placeholder="password" secureTextEntry />
         {error.errorMessage ? <Text style={styles.error}>{error.errorMessage}</Text> : null}

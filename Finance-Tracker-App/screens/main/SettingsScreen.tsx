@@ -25,7 +25,7 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function SettingsScreen() {
 
-  const { logout } = useAuth();
+  const { logout, userDto } = useAuth();
 
   const [darkMode, setDarkMode] = React.useState(false);
 
@@ -35,8 +35,8 @@ export default function SettingsScreen() {
       {/* Profile Section */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Profile</Text>
-        <Text style={styles.cardValue}>John Doe</Text>
-        <Text>Email: john@example.com</Text>
+        <Text style={styles.cardValue}>{userDto?.username}</Text>
+        <Text>Email: {userDto?.email}</Text>
       </View>
 
       {/* Preferences */}

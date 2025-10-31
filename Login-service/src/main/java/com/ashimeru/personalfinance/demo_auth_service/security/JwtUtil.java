@@ -34,7 +34,7 @@ public class JwtUtil {
   public String generateToken(UserDto user) {
     Date expTime = new Date(System.currentTimeMillis() + 1000 * 60 * 30);
     Map<String, Object> claims = new HashMap<>();
-    claims.put("userName", user.getUserName());
+    claims.put("userName", user.getUsername());
     claims.put("id", user.getId());
     claims.put("email", user.getEmail());
     claims.put("role", user.getRole());
@@ -42,7 +42,7 @@ public class JwtUtil {
 
     return Jwts.builder()
         .setClaims(claims)
-        .setSubject(user.getUserName())
+        .setSubject(user.getUsername())
         .setIssuedAt(new Date())
         .setExpiration(expTime)
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY)

@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const authAxios = axios.create({
-  baseURL: "http://172.20.10.2:8090/auth",
+  baseURL: "http://localhost/auth",
 });
 
 // Add token to every request if it exists
@@ -30,10 +31,10 @@ authAxios.interceptors.response.use(
       (response.status === 401 || response.status === 403) &&
       !publicRoutes.includes(config.url || "")
     ) {
-      // Token is invalid or expired
+      const { logout } = useAuth();
       await AsyncStorage.removeItem("authToken");
       console.log("Token expired. Redirect to login.");
-      // Optionally, navigate using a navigation ref
+      logout;
     }
 
     return Promise.reject(error);

@@ -57,7 +57,7 @@ public class TransactionController {
          return ResponseEntity.ok(balance);
     }
 
-    @PatchMapping(value = "/transactions/edit")
+    @PatchMapping(value = "/transactions/update/{id}")
     public ResponseEntity<TransactionEntity> updateTransaction(@PathVariable Long id, @RequestBody TransactionDto transactionDto, Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
         TransactionEntity transactionEntity = this.transactionService.updateTransaction(id, userId, transactionDto);

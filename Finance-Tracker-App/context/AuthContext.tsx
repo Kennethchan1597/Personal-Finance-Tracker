@@ -1,55 +1,73 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+type UserDto = {
+  id: number;
+  username: string;
+  email: string;
+  defaultCurrency: string;
+  role: string
+};
+
 type AuthContextType = {
   isLoggedIn: boolean | null;
-  login: (token: string, username: string) => Promise<void>;
+  login: (token: string, userDto: UserDto) => Promise<void>;
   logout: () => Promise<void>;
-  username: string;
-  setUser: (username: string) => Promise<void>;
+  userDto: UserDto | null;
 };
 
 const AuthContext = createContext<AuthContextType>({
   isLoggedIn: null,
-  login: async () => { },
-  logout: async () => { },
-  username: "",
-  setUser: async () => { },
+  login: async () => {},
+  logout: async () => {},
+  userDto: null,
 });
+
+export let globalLogout: (() => Promise<void>) | null = null;
+export let globalLogout2: (() => Promise<void>);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-  const [username, setUsername] = useState<string>("");
+  const [userDto, setUserDto] = useState<UserDto | null>(null);
+
   useEffect(() => {
     const loadAuthData = async () => {
-      const token = await AsyncStorage.getItem("authToken");
-      const storedUsername = await AsyncStorage.getItem("username");
-      setIsLoggedIn(!!token);
-      setUsername(storedUsername || "")
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+        const userJson = await AsyncStorage.getItem("userDto");
+        if (token && userJson) {
+          setUserDto(JSON.parse(userJson));
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Failed to load auth data", error);
+        setIsLoggedIn(false);
+      }
     };
     loadAuthData();
   }, []);
 
-  const login = async (token: string, usernames: string) => {
-    await AsyncStorage.setItem("authToken", token);
-    await AsyncStorage.setItem("username", usernames);
-    setUsername(usernames)
+  const login = async (token: string, userDto: UserDto) => {
+    await AsyncStorage.multiSet([
+      ["authToken", token],
+      ["userDto", JSON.stringify(userDto)],
+    ]);
+    setUserDto(userDto);
     setIsLoggedIn(true);
   };
 
   const logout = async () => {
-    await AsyncStorage.multiRemove(["authToken", "username"]);
+    await AsyncStorage.multiRemove(["authToken", "userDto"]);
+    setUserDto(null);
     setIsLoggedIn(false);
-    setUsername("");
   };
 
-  const setUser = async (username: string) => {
-    await AsyncStorage.setItem("username", username);
-    setUsername(username);
-  };
-  
+  globalLogout = logout;
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, username, setUser }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, userDto }}>
       {children}
     </AuthContext.Provider>
   );

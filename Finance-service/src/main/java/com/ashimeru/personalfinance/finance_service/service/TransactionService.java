@@ -53,7 +53,25 @@ public class TransactionService {
 
     public TransactionEntity updateTransaction(Long id, Long userId, TransactionDto transactionDto) {
         TransactionEntity transactionEntity = this.findTransactionByIdAndUserId(id, userId);
-        
+
+        System.out.println("Incoming DTO: " +
+    "amount=" + transactionDto.getAmount() + ", " +
+    "category=" + transactionDto.getCategory() + ", " +
+    "description=" + transactionDto.getDescription() + ", " +
+    "date=" + transactionDto.getDate() + ", " +
+    "type=" + transactionDto.getType() + ", " +
+    "currency=" + transactionDto.getCurrency()
+);
+
+System.out.println("Before update: " +
+    "amount=" + transactionEntity.getAmount() + ", " +
+    "category=" + transactionEntity.getCategory() + ", " +
+    "description=" + transactionEntity.getDescription() + ", " +
+    "date=" + transactionEntity.getDate() + ", " +
+    "type=" + transactionEntity.getType() + ", " +
+    "currency=" + transactionEntity.getCurrency()
+);
+
         if(transactionDto.getAmount() != null) {
             transactionEntity.setAmount(transactionDto.getAmount());
         }

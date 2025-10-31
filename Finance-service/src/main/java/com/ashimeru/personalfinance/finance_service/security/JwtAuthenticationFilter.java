@@ -13,7 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter { 
+
+    // Runs before your controller for each incoming HTTP request
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -26,11 +28,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
+        // System.out.println("🔹 Request: " + request.getMethod() + " " + request.getRequestURI());
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-
             jwtUtil.isTokenValid(token);
-
             Long userId = jwtUtil.extractUserId(token);
             CurrencyType defaultCurrency = this.jwtUtil.extractDefaultCurrency(token);
 

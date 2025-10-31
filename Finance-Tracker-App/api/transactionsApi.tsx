@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { globalLogout } from "../context/AuthContext";
 
 export const transactionAxios = axios.create({
-  baseURL: "http://172.20.10.2:8091/transactions",
+  baseURL: "http://localhost/transactions",
   timeout: 10000,
 });
 
@@ -34,9 +35,8 @@ transactionAxios.interceptors.response.use(
       // Token is invalid or expired
       await AsyncStorage.removeItem("token");
       console.log("Token expired. Redirect to login.");
-      // Optionally, navigate using a navigation ref
+      globalLogout?.();
     }
-
     return Promise.reject(error);
   }
 );
