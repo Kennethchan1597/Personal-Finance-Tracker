@@ -24,7 +24,6 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export let globalLogout: (() => Promise<void>) | null = null;
-export let globalLogout2: (() => Promise<void>);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
